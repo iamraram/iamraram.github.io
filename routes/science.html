@@ -1,0 +1,166 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../pages.css">
+    <title>과학 수행평가</title>
+</head>
+
+<style>
+    .sc_input {
+        width: 550px;
+        height: 44px;
+        border: 1px solid black;
+        padding: 15px;
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+
+    .sc_title {
+        display: flex;
+        width: 550px;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    h1 {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    input:focus,
+    input:active {
+        outline: none;
+    }
+
+    .sc_btn {
+        margin-top: 40px;
+        width: 100px;
+        height: 44px;
+        font-size: 16px;
+        background-color: white;
+        border: 1px solid rgb(75, 75, 75);
+        transition-duration: 0.2s;
+    }
+
+    .d1 {
+        background-color: rgb(240, 240, 240);
+
+    }
+
+    .sc_btn:hover {
+        background-color: rgb(75, 75, 75);
+        color: white;
+        transition-duration: 0.2s;
+    }
+</style>
+
+<body>
+    <h1>
+        문진쌤과 함께하는 즐거운 전사와 번역!
+    </h1>
+
+
+    <div class="sc_title">
+        3염기조합 입력
+    </div>
+    <input type="text" class="sc_input d0" name="">
+
+    <div class="sc_title">
+        전사된 RNA의 코돈
+    </div>
+    <input type="text" class="sc_input d1 d2" readonly>
+
+    <div class="sc_title">
+        번역된 아미노산
+    </div>
+    <input type="text" class="sc_input d1 d3" readonly>
+
+    <button class="sc_btn" onclick="javascript:func()">
+        실행
+    </button>
+    <script>
+        function func() {
+            let name = String(document.querySelector('.d0').value)
+            let splited = name.split('')
+            for (let i = 0;i < splited.length;i++) {
+                console.log(splited[i])
+                if (splited[i] == 'A') {
+                    splited[i] = 'U'
+                }
+                else if (splited[i] == 'T') {
+                    splited[i] = 'A'
+                }
+                else if (splited[i] == 'G') {
+                    splited[i] = 'C'
+                }
+                else if (splited[i] == 'C') {
+                    splited[i] = 'G'
+                }
+            }
+
+            let b = ''
+            for (let i = 0;i < splited.length;i++) {
+                b += splited[i]
+            }
+
+            document.querySelector('.d2').value = String(b)
+
+            let returns = []
+
+            for (let i = 0;i < splited.length + 1;i++) {
+                if (i != 0 & i % 3 == 0) {
+                    const a = String(splited[i - 3] + '' + splited[i - 2] + '' + splited[i - 1])
+                    if (a != undefined) {
+                        for (let j = 0;j < Object.keys(코돈).length;j++) {
+                            for (let k = 0;k < 코돈[Object.keys(코돈)[j]].length;k++) {
+                                if (코돈[Object.keys(코돈)[j]][k] == a) {
+                                    returns.push(Object.keys(코돈)[j])
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            let c = ''
+            for (let i = 0;i < returns.length;i++) {
+                c += (returns[i] + ' ')
+            }
+
+            document.querySelector('.d3').value = String(c)
+        }
+
+        const 코돈 = {
+            페닐알라닌: ['UUU', 'UCC'],
+            류신: ['UUA', 'UUG', 'CUU', 'CUC', 'CUA', 'CUG'],
+            아이소류신: ['AUU', 'AUC', 'AUA'],
+            메싸이오닌: ['AUG'],
+            발린: ['GUU', 'GUC', 'GUA', 'GUG'],
+            세린: ['UCU', 'UCC', 'UCA', 'UCG'],
+            프롤린: ['CCU', 'CCC', 'CCA', 'CCG'],
+            트레오닌: ['AUC', 'ACC', 'ACA', 'ACG'],
+            알라닌: ['GCU', 'GCC', 'GCA', 'GCG'],
+            타이로신: ['UAU', 'UAC'],
+            히스티딘: ['CAU', 'CAC'],
+            글루타민: ['CAA', 'CAG'],
+            아스파라진: ['AAU', 'AAC'],
+            라이신: ['AAA', 'AAG'],
+            아스파트산: ['GAU', 'GAC'],
+            글루탐산: ['GAA', 'GAG'],
+            시스테인: ['UGU', 'UGC'],
+            트립토판: ['UGG'],
+            아르지닌: ['CGU', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG'],
+            세린: ['AGU', 'AGC'],
+            글라이신: ['GGU', 'GGC', 'GGA', 'GGG'],
+            종결코돈: ['UAA', 'UAG', 'UGA']
+        }
+    </script>
+</body>
+
+</html>
